@@ -5,7 +5,7 @@ import RightNav from "./RightNav";
 
 const NavigationBar = () => {
   return (
-    <nav>
+    <nav className="Navbar">
       <LeftNav />
       <SearchBar />
       <RightNav />

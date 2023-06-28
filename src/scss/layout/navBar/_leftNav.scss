@@ -1,1 +1,24 @@
 @use "../../abstracts" as *;
+
+.menu-log {
+  @include center;
+
+  .burgerMenu {
+    padding: 0.9rem;
+  }
+
+  .logo-container {
+    padding: 1.5rem;
+    @include center;
+
+    a {
+      @include center;
+
+      img {
+        width: 9rem;
+        height: auto;
+        cursor: pointer;
+      }
+    }
+  }
+}
