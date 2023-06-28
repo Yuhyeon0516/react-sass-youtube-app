@@ -1,15 +1,6 @@
-@import "./abstracts/variables";
-@import "./abstracts/mixins";
-@import "./layout/navBar/leftNav";
-@import "./layout/navBar/navBar";
-@import "./layout/navBar/rightNav";
-@import "./layout/navBar/searchBar";
-@import "./layout/sideBar/bigSideBar";
-@import "./layout/sideBar/sideBar";
-@import "./layout/sideBar/smallSideBar";
-@import "./pages/mainPage";
-@import "./pages/searchedVideos";
-@import "./pages/videoPage";
+@use "abstracts" as *;
+@use "layout";
+@use "pages";
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400&display=swap");
 
