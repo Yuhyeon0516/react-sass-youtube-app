@@ -11,6 +11,7 @@ import formatNumber from "../../helpers/formatNumber";
 import formatViews from "../../helpers/formatViews";
 import formatText from "../../helpers/formatText.jsx";
 import axios from "../../api/axios";
+import RelatedVideos from "./RelatedVideos";
 
 const VideoPage = () => {
   dayjs.extend(relativeTime);
@@ -147,6 +148,9 @@ const VideoPage = () => {
             <div className="video_comments_count">{comments} Comments</div>
             <div className="video_comments">{videoCommentsMarkUp}</div>
           </div>
+        </div>
+        <div className="column column_2">
+          <RelatedVideos currentVideo={videoId} />
         </div>
       </div>
     </section>
