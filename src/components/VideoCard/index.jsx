@@ -10,7 +10,7 @@ const VideoCard = ({ id, video, img, info, eInfo, channelInfo }) => {
         <div className="video_preview">
           <img src={img} alt={info.title} />
           {eInfo.duration ? (
-            <div>
+            <div className="video_duration">
               <span>{eInfo.duration}</span>
             </div>
           ) : null}
@@ -33,9 +33,9 @@ const VideoCard = ({ id, video, img, info, eInfo, channelInfo }) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="dots_container">
-          <BiDotsVerticalRounded size={25} className="dots" />
+          <div className="dots_container">
+            <BiDotsVerticalRounded size={25} className="dots" />
+          </div>
         </div>
       </Link>
     </div>
