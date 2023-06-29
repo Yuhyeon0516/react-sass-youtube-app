@@ -13,7 +13,7 @@ const LeftNav = () => {
         <IoMenu size={25} />
       </button>
       <div className="logo-container">
-        <Link>
+        <Link to="/">
           <img src={imgUrl} alt="youtube logo" />
         </Link>
       </div>

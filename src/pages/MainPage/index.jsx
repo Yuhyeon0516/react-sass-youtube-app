@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { getVideoInfo } from "../../helpers/fetchingData";
 import VideoCard from "../../components/VideoCard";
+import { SidebarContext } from "../../context/SidebarContext";
 
 const MainPage = () => {
   const storedVideos = JSON.parse(localStorage.getItem("mainVideos"));
   const [mainVideos, setMainVideos] = useState(storedVideos || []);
+  const { setIsToggled } = useContext(SidebarContext);
 
   const getMainVideos = useCallback(async () => {
     try {
@@ -25,6 +27,10 @@ const MainPage = () => {
   useEffect(() => {
     getMainVideos();
   }, [getMainVideos]);
+
+  useEffect(() => {
+    setIsToggled(true);
+  }, []);
 
   return (
     <section className="mainGallery">
