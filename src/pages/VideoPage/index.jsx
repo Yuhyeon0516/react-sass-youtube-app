@@ -68,17 +68,18 @@ const VideoPage = () => {
         <div className="comment_text_container">
           <div className="comment_author">{snippet.authorDisplayName}</div>
           <span>{dayjs(snippet.publishedAt).fromNow()}</span>
-        </div>
-        <div className="comment_text">{snippet.textOriginal}</div>
-        <div className="comment_buttons">
-          <div>
-            <BiLike size={16} />
-            <span className="muted">{snippet.likeCount}</span>
+
+          <div className="comment_text">{snippet.textOriginal}</div>
+          <div className="comment_buttons">
+            <div>
+              <BiLike size={16} />
+              <span className="muted">{snippet.likeCount}</span>
+            </div>
+            <div>
+              <BiDislike size={16} />
+            </div>
+            <span className="muted">Reply</span>
           </div>
-          <div>
-            <BiDislike size={16} />
-          </div>
-          <span className="muted">Reply</span>
         </div>
       </div>
     );
@@ -99,7 +100,7 @@ const VideoPage = () => {
       <div className="columns_container">
         <div className="column column_1">
           <div className="youtube_player_container">
-            <Youtube className="youtube-plater" videoId={videoId} onPlay={onPlayerReady} opts={opts} autoPlay />
+            <Youtube className="youtube_player" videoId={videoId} onPlay={onPlayerReady} opts={opts} autoplay />
           </div>
           <div className="videoplayer_info">
             {videoHeaderMarkUp}
@@ -116,14 +117,14 @@ const VideoPage = () => {
               </div>
               <div className="share">
                 <RiShareForwardLine size={25} />
-                <span>Share</span>
+                <span>SHARE</span>
               </div>
               <div className="save">
                 <MdPlaylistAdd size={25} />
-                <span>Save</span>
+                <span>SAVE</span>
               </div>
               <div className="report">
-                <RiFlagLine size={25} />
+                <RiFlagLine size={25} className="sidebar_icon" />
               </div>
             </div>
           </div>
@@ -134,10 +135,10 @@ const VideoPage = () => {
               </div>
               <div className="channel_title">
                 <a href="/">{currentVideo.channelInfo.title}</a>
-                <span>{subscribers}</span>
+                <span>{subscribers} subscribers</span>
               </div>
-              <div>
-                <button className="channel_subscribe">Subscribe</button>
+              <div className="channel_subscribe">
+                <button>SUBSCRIBED</button>
               </div>
             </div>
             <div className="video_description">{videoDescription}</div>
