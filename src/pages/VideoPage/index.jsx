@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Youtube from "react-youtube";
 import { SidebarContext } from "../../context/SidebarContext";
@@ -6,19 +6,19 @@ import { BiDislike, BiLike } from "react-icons/bi";
 import { RiFlagLine, RiShareForwardLine } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import formatNumber from "../../helpers/formatNumber";
 import formatViews from "../../helpers/formatViews";
 import formatText from "../../helpers/formatText.jsx";
+import axios from "../../api/axios";
 
 const VideoPage = () => {
+  dayjs.extend(relativeTime);
   const { videoId } = useParams();
   let location = useLocation();
   const { state: currentVideo } = location;
   const { setIsToggled } = useContext(SidebarContext);
-
-  useEffect(() => {
-    setIsToggled(false);
-  }, []);
+  const [videoComments, setVideoComments] = useState([]);
 
   const onPlayerReady = (e) => {
     e.target.playVideo();
@@ -57,6 +57,42 @@ const VideoPage = () => {
       </div>
     </div>
   );
+
+  const videoCommentsMarkUp = videoComments.map((item) => {
+    const { id, snippet } = item.snippet.topLevelComment;
+    return (
+      <div className="comment_container" key={id}>
+        <div className="comment_avatar_container">
+          <img src={snippet.authorProfileImageUrl} alt="user avatar" />
+        </div>
+        <div className="comment_text_container">
+          <div className="comment_author">{snippet.authorDisplayName}</div>
+          <span>{dayjs(snippet.publishedAt).fromNow()}</span>
+        </div>
+        <div className="comment_text">{snippet.textOriginal}</div>
+        <div className="comment_buttons">
+          <div>
+            <BiLike size={16} />
+            <span className="muted">{snippet.likeCount}</span>
+          </div>
+          <div>
+            <BiDislike size={16} />
+          </div>
+          <span className="muted">Reply</span>
+        </div>
+      </div>
+    );
+  });
+
+  const loadComment = useCallback(async () => {
+    setIsToggled(false);
+    const response = await axios.get(`/commentThreads?part=snippet&videoId=${videoId}`);
+    setVideoComments(response.data.items);
+  }, [setIsToggled, videoId]);
+
+  useEffect(() => {
+    loadComment();
+  }, []);
 
   return (
     <section className="videoPage">
@@ -108,7 +144,7 @@ const VideoPage = () => {
           </div>
           <div className="video_comments_container">
             <div className="video_comments_count">{comments} Comments</div>
-            <div className="video_comments">{/* videoCummentMarkUp */}</div>
+            <div className="video_comments">{videoCommentsMarkUp}</div>
           </div>
         </div>
       </div>
